@@ -22,6 +22,7 @@ classdef FluxBalanceModel
             cd(workingDirectory);
             % import the model
             tsd.model = model;
+            'hi'
         end
         
         % writes out a summary of the reaction n

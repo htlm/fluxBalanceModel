@@ -76,19 +76,19 @@ classdef FluxBalanceModel
         end;
         
         % find all the reactions that involve metabolite n
-        function rxnIndices = findRactionsWithMetabolite(tsd, n)
+        function rxnIndices = findReactionsWithMetabolite(tsd, n)
             rxnIndices = find(tsd.model.S(n, :));
         end
         
         
         % find all the reactions that involve metabolites
         % matching metString
-        function rxnIndices = queryRactionsWithMetabolite(tsd, metString)
+        function rxnIndices = queryReactionsWithMetabolite(tsd, metString)
             fprintf('\nReactions involving ''%s'':\n', metString);
             metIndices = tsd.findMetabolite( metString);
             for i = 1:length(metIndices)
                 fprintf('METABOLITE %s:', tsd.model.metNames{metIndices(i)});
-                rxnIndices = tsd.findRactionsWithMetabolite(metIndices(i));
+                rxnIndices = tsd.findReactionsWithMetabolite(metIndices(i));
                 for j = 1:length(rxnIndices)
                     tsd.queryReaction(rxnIndices(j));
                     fprintf('\n');
@@ -124,7 +124,7 @@ classdef FluxBalanceModel
             if isempty(tsd.results)
                 error('No results yet. Execture ''runGurobi'' first')
             end
-            % find all the ractions with non zero fluxes
+            % find all the reactions with non zero fluxes
             rxns = find(tsd.results.x ~= 0);
             % find all the metabolites involved in these reactions
             mets = find(sum(tsd.model.S(:, rxns), 2) > 0);
